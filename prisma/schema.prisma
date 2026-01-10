@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model InputSet {
+  id                     String          @id @default(uuid())
+  name                   String?
+  chargePoints           Int
+  arrivalMultiplier      Float           @default(1.0)
+  consumptionKwhPer100km Float           @default(18.0)
+  chargerPowerKw         Float           @default(11.0)
+  createdAt              DateTime        @default(now())
+  updatedAt              DateTime        @updatedAt
+
+  simulationRuns         SimulationRun[]
+}
+
+enum RunStatus {
+  queued
+  running
+  succeeded
+  failed
+}
+
+model SimulationRun {
+  id                String            @id @default(uuid())
+  inputSetId        String
+  inputSet          InputSet          @relation(fields: [inputSetId], references: [id], onDelete: Cascade)
+
+  status            RunStatus         @default(queued)
+  seed              Int
+  startedAt         DateTime?
+  finishedAt        DateTime?
+
+  totalEnergyKwh    Float?
+  theoreticalMaxKw  Float?
+  actualMaxKw       Float?
+  concurrencyFactor Float?
+
+  yearlyEventCount  Int?
+
+  createdAt         DateTime          @default(now())
+
+  exemplaryDay      ExemplaryDayPoint[]
+
+  eventAggs         ChargingEventAgg[]
+}
+
+model ExemplaryDayPoint {
+  id              String         @id @default(uuid())
+  simulationRunId String
+  simulationRun   SimulationRun  @relation(fields: [simulationRunId], references: [id], onDelete: Cascade)
+
+  tickIndex        Int           // 0..95
+  totalPowerKw     Float
+
+  createdAt        DateTime      @default(now())
+
+  @@unique([simulationRunId, tickIndex])
+}
+
+enum AggPeriod {
+  day
+  week
+  month
+  year
+}
+
+model ChargingEventAgg {
+  id              String         @id @default(uuid())
+  simulationRunId String
+  simulationRun   SimulationRun  @relation(fields: [simulationRunId], references: [id], onDelete: Cascade)
+
+  period          AggPeriod
+  periodStart     DateTime
+  eventCount      Int
+
+  createdAt       DateTime       @default(now())
+
+  @@unique([simulationRunId, period, periodStart])
+  @@index([simulationRunId])
+}
+

@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:16
+    container_name: ev_parking_db
+    environment:
+      POSTGRES_USER: evsim
+      POSTGRES_PASSWORD: evsim_password
+      POSTGRES_DB: evsim
+    ports:
+      - "5433:5432"
+    volumes:
+      - evsim_pgdata:/var/lib/postgresql/data
+
+volumes:
+  evsim_pgdata:
