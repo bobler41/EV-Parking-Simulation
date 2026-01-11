@@ -34,8 +34,8 @@ backend/src/services/simulationCore.ts
 
 ### How to run logic only
 
-cd backend
-npm run simulate
+- cd backend
+- npm run simulate
 
 
 This runs the simulation without database or frontend and prints results to the terminal.
@@ -70,13 +70,13 @@ This runs the simulation without database or frontend and prints results to the 
 ### How to run backend
 
 Start database from project root:
-docker compose up -d
+- docker compose up -d
 
 Then:
-cd backend
-npm install
-npx prisma migrate dev
-npm run dev
+- cd backend
+- npm install
+- npx prisma migrate dev
+- npm run dev
 
 Backend runs at: http://localhost:3000
 
@@ -109,9 +109,9 @@ Health check: Invoke-RestMethod -Method GET -Uri http://localhost:3000/health
 - View charging events by day, week, month, year
 
 ### How to run frontend
-cd frontend
-npm install
-npm run dev
+- cd frontend
+- npm install
+- npm run dev
 
 Frontend runs at: http://localhost:5173
 
