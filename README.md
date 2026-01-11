@@ -26,7 +26,6 @@ It is split into three clearly separated tasks: simulation logic, backend API, a
 - Vehicles leave immediately after charging
 - Constant charging power per charge point
 - No grid limits, no queueing
-- No daylight saving time handling
 
 ### Location
 
