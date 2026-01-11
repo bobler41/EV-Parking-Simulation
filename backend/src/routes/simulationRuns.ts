@@ -14,7 +14,8 @@ router.post("/", async (req, res) => {
   const parsed = createRunSchema.safeParse(req.body);
   if (!parsed.success) return res.status(400).json(parsed.error);
 
-  const seed = parsed.data.seed ?? 12345;
+  const seed = parsed.data.seed ?? Math.floor(Math.random() * 2_000_000_000);
+
   const inputSet = await prisma.inputSet.findUnique({ where: { id: parsed.data.inputSetId } });
   if (!inputSet) return res.status(404).json({ error: "InputSet not found" });
 
@@ -46,7 +47,8 @@ router.post("/", async (req, res) => {
           theoreticalMaxKw: output.theoreticalMaxKw,
           actualMaxKw: output.actualMaxKw,
           concurrencyFactor: output.concurrencyFactor,
-          yearlyEventCount: output.yearlyEventCount
+          yearlyEventCount: output.yearlyEventCount,
+          exemplaryDayIndex: output.exemplaryDayIndex
         }
       });
 

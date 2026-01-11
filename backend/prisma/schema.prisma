@@ -48,6 +48,8 @@ model SimulationRun {
   exemplaryDay      ExemplaryDayPoint[]
 
   eventAggs         ChargingEventAgg[]
+
+  exemplaryDayIndex Int?
 }
 
 model ExemplaryDayPoint {

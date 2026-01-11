@@ -4,6 +4,7 @@ export type SimulationInput = {
   consumptionKwhPer100km: number;
   chargerPowerKw: number;
   seed: number;
+  exemplaryDayIndex?: number;
 };
 
 export type ExemplaryDayPoint = {
@@ -19,6 +20,7 @@ export type SimulationOutput = {
   yearlyEventCount: number;
   exemplaryDay: ExemplaryDayPoint[];
   eventAggs: EventAgg[];
+  exemplaryDayIndex: number;
 };
 
 export type EventAgg = {
@@ -151,7 +153,8 @@ export function runSimulationOneYear(input: SimulationInput): SimulationOutput {
   let actualMaxKw = 0;
   let yearlyEventCount = 0;
 
-  const exemplaryDayIndex = 180;
+  const exemplaryDayIndex = input.exemplaryDayIndex ?? Math.floor(rng() * 365);
+
   const exemplaryStart = exemplaryDayIndex * ticksPerDay;
   const exemplaryEnd = exemplaryStart + ticksPerDay;
   const exemplaryDay: ExemplaryDayPoint[] = [];
