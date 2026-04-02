@@ -5,7 +5,7 @@ It is split into three clearly separated tasks: simulation logic, backend API, a
 
 ---
 
-## Task 1: Simulation Logic
+## Simulation Logic
 
 ### What it does
 
@@ -41,7 +41,7 @@ This runs the simulation without database or frontend and prints results to the 
 
 ---
 
-## Task 2b: Backend
+## Backend
 
 ### What it does
 
@@ -83,7 +83,7 @@ Health check: Invoke-RestMethod -Method GET -Uri http://localhost:3000/health
 
 ---
 
-## Task 2a: Frontend
+## Frontend
 
 ### What it does
 
